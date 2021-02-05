@@ -1,0 +1,46 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Index
+{% endblock %}
+
+{% block main %}
+
+{% if indexList %}
+
+{% for item in indexList %}
+
+    <div class="recipe-cards">
+        <h3 class="recipe-cards-title">
+            <a class="title" href="/view?id={{ item.id }}">
+                {{ item.title }}
+                
+            </a>
+        </h3>
+        
+        
+
+        <div style="vertical-align: top;" class="recipe-cards-info">
+        
+            <div style="margin-top: 0px; margin-bottom: 0px; padding-top: 0px; vertical-align: top;"><i>Serves {{ item.serves }}</i>&nbsp;&nbsp;|&nbsp;&nbsp;From: {{ item.author }}</div>
+            
+            <div style="margin-top: 10px;">{{ item.method }}</div>
+        
+        </div>
+
+            
+
+            
+
+        
+        
+        </p>
+    </div>
+    
+{% endfor %}
+
+{% else %}
+No recipes to show. Share a recipe <a class="linkGeneral" href="/contribute">here</a>.
+{% endif %}
+
+{% endblock %}

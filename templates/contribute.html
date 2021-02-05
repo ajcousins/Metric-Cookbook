@@ -1,0 +1,65 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Index
+{% endblock %}
+
+{% block main %}
+
+
+
+<!--
+    <br>
+    <table class="ingredients-table italic">
+        <tbody>
+            {% for table in table %}
+            <tr>
+                <td class="quant-col">{{ table.quantity }}</td>
+                <td>{{ table.unit }}</td>
+                <td>{{ table.ingredient }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+-->
+    
+    <form class="container-a" name="form" action="/contribute" method="post">
+        
+        
+        <div class="form-group" style="margin-right:10px">
+            Title: 
+            <input type="text" required="required" autocomplete="off" autofocus class="ac-form-control" name="title" type="text"></input>
+        </div>
+        <div class="form-group">
+            Servings: 
+            <input type="text" required="required" autocomplete="off" autofocus class="ac-form-control" name="servings" type="text"></input>
+            <span class="italic red-text">{{ message }}</span>
+        </div>
+
+        <div class="form-group container-a-item-a">
+            Ingredients: 
+            <textarea autocomplete="off" required="required" class="ac-form-control italic" name="ingredients" type="text" rows="4" placeholder="Type (or paste) ingredients list here, one per line...&#10;1 1/2 tsp sugar&#10;3 cups flour&#10;etc..."></textarea>
+        </div>
+
+        <div class="form-group container-a-item-a">
+            Method: 
+            <textarea autocomplete="off" required="required" class="ac-form-control" name="method" type="text" rows="4"></textarea>
+        </div>
+        
+        
+        <div class="container-a-item-b">
+            <input style="margin-right: 5px" type="checkbox" name="convertMetric" value="1">Convert ingredient units to metric</input>
+        </div>
+            
+
+        <div style="float:right; margin-right: 0px">
+                <button class="submitButton" type="submit">Check</button>
+        </div>
+
+        
+        
+        
+
+    </form>
+
+{% endblock %}

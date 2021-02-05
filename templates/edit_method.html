@@ -1,0 +1,45 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Index
+{% endblock %}
+
+{% block main %}
+    
+
+
+<div>
+
+    <form class="" name="form" action="/update_method" method="post">
+
+        <textarea autocomplete="off" required="required" class="ac-form-control" name="method" type="text" rows="16" placeholder="Method text...">{{ placeholderText }}</textarea>
+ 
+        <input type="hidden" name="editRecipe" value="{{ recipe_id }}"></p>
+        
+        
+
+        <div style="float:right; margin-right: 0px; margin-left: 10px">
+            <button class="submitButton" type="submit">Update</button>
+        </div>
+
+        
+        
+
+    </form>
+
+
+
+
+    <form class="" name="form" action="/edit" method="post">
+
+        <div style="float:left; margin-left: 0px">
+            <button class="submitButton" type="submit" name="editRecipe" value="{{ recipe_id }}">Back</button>
+        </div>
+
+    </form>
+
+</div>
+
+
+
+{% endblock %}

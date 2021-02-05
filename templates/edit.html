@@ -1,0 +1,83 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Index
+{% endblock %}
+
+{% block main %}
+    <div class="recipe-layout">
+        <div class="grid-item-title">
+            <h1>{{ session.title }}</h1>
+            <p class="italic">Serves: {{ session.servings }}</p>
+            {% if published != 0 %}
+            <a class="edit-text" href="/view?id={{ recipe_id }}">Preview</a>
+            {% endif %}
+        </div>
+
+        <div class="grid-item-ingredients">
+            <table class="italic">
+                
+                    <colgroup>
+                    <col span="1" style="width: 10%;">
+                    <col span="1" style="width: 10%;">
+                    <col span="1" style="width: 70%;">
+                    </colgroup>
+
+                <tbody>
+                    <form name="ingredient_form" action="/edit_ingredient" method="post">
+                    {% for table in table %}
+                    <tr>
+                        
+                        <td class="quant-col" name="recipe_id" value="{{ session.recipe_id }}">
+                            
+                            <button class="editButton" type="submit" name=edit_ingredient value="{{ table.item_id }}">
+                                {{ table.quantity }}
+                                {{ table.unit }}
+                                {{ table.ingredient }}
+                            </button>
+                        </td>
+                        
+                    </tr>
+                    {% endfor %}
+                    <tr>
+                        <td style="text-align: right;">
+                            <span>...</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        
+                        <td style="text-align: right;">
+                            <button class="editButton" type="submit" name="edit_ingredient" value="add_new">(Add ingredient)</button>
+                            <input type="hidden" name="recipe_id" value="{{ session.recipe_id }}">
+                        </td>
+                        </form>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        
+        <div class="grid-item-method">
+            <form name="method_form" action="/edit_method" method="post">
+                <button class="editButtonPara" type="submit" name="edit_method" value="{{ session.recipe_id }}">
+                    <input type="hidden" name="recipe_id" value="{{ session.recipe_id }}">
+                    <div style="white-space: pre-wrap;">{{ session.method }}</div>
+                </button>
+            </form>
+            <br><br>
+        </div>
+        
+    </div>
+
+    {% if published == 0 %}
+
+    <form action="/check" method="post">
+        <div style="float:right;">
+                <button class="submitButton" type="submit" name="recipe_id" value="{{ session.recipe_id }}">Confirm</button>
+        </div>
+    </form>
+
+    {% endif %}
+
+
+{% endblock %}
