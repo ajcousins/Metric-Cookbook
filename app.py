@@ -34,7 +34,6 @@ def index():
             dict_item['method'] = dict_item['method'][0:150]
             dict_item['method'] += "..."
 
-        
         return render_template('index.html', indexList=indexList)
 
 @app.route("/profile", methods=["GET"])
@@ -262,8 +261,6 @@ def edit():
 @app.route("/edit_ingredient", methods=["POST"])
 def edit_ingredient():
     
-
-
     if request.method == "POST": 
 
         recipe_id = request.form.get("recipe_id")
@@ -324,7 +321,6 @@ def contribute():
         # Remove any "unpublished" recipes from database before requesting new data.
         session.author = session["username"]
 
-        
         con = sqlite3.connect('data.db')
         with con:
             cur = con.cursor()
@@ -339,14 +335,12 @@ def contribute():
                 cur.execute(
                     "DELETE FROM ingredients_table WHERE recipe_id = ?", i)
 
-
         # Get requests
         session.title = request.form.get("title").title()
         session.servings = request.form.get("servings")
         session.ingredients_list = request.form.get("ingredients").split('\r\n')
         session.method = request.form.get("method")
         session.metricRequest = request.form.get("convertMetric")
-
 
         # Check if servings not a number
         if not session.servings.isnumeric():
@@ -364,13 +358,6 @@ def contribute():
         session.notes = "Notes"
         session.published = 0
         session.date = datetime.datetime.now()
-
-        print("title:", session.title)
-        print("servings:", session.servings)
-        print("method:", session.method)
-        print("author:", session.author)
-        print("notes:", session.notes)
-        print("published:", session.published)
 
         # Submit data to databse
         data = (
@@ -411,7 +398,6 @@ def contribute():
         redirectEdit = '/edit?id='
         redirectEdit += str(session.recipe_id)
         return redirect(redirectEdit)
-
 
 @app.route("/check", methods=["GET", "POST"])
 def confirm():
@@ -532,7 +518,6 @@ def register():
                 "INSERT INTO users (username, hash) VALUES (?, ?)", 
                 (username, generate_password_hash(request.form.get("password")))
             )
-
 
     return redirect('/')
 

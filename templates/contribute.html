@@ -6,25 +6,7 @@
 
 {% block main %}
 
-
-
-<!--
-    <br>
-    <table class="ingredients-table italic">
-        <tbody>
-            {% for table in table %}
-            <tr>
-                <td class="quant-col">{{ table.quantity }}</td>
-                <td>{{ table.unit }}</td>
-                <td>{{ table.ingredient }}</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
--->
-    
     <form class="container-a" name="form" action="/contribute" method="post">
-        
         
         <div class="form-group" style="margin-right:10px">
             Title: 
@@ -46,20 +28,14 @@
             <textarea autocomplete="off" required="required" class="ac-form-control" name="method" type="text" rows="4"></textarea>
         </div>
         
-        
         <div class="container-a-item-b">
             <input style="margin-right: 5px" type="checkbox" name="convertMetric" value="1">Convert ingredient units to metric</input>
         </div>
             
-
         <div style="float:right; margin-right: 0px">
                 <button class="submitButton" type="submit">Check</button>
         </div>
-
         
-        
-        
-
     </form>
 
 {% endblock %}

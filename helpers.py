@@ -1,15 +1,12 @@
 ######## INGREDIENTS LIST FUNCTIONS ########
 import re
 
-
-
 def ingredientItemList(text_to_search):
 
     # Split big string into list for each line.
     # Now redundant in web use.
 
     item_list = text_to_search
-    
     
     temp = []
     while item_list:
@@ -233,7 +230,7 @@ def convertMetric(ingredients_list):
 
     return ingredients_list
 
-
+# Convert ml to L when quantity reaches 1000 units.
 def unitParseLitres(x, item):
     if x > 999.99:
         x = round(x / 1000, 2)
@@ -244,6 +241,7 @@ def unitParseLitres(x, item):
 
     return None
 
+# Convert g to kg when quantity reaches 1000 units.
 def unitParseGrams(x, item):
     if x > 999.99:
         x = round(x / 1000, 2)
@@ -253,9 +251,6 @@ def unitParseGrams(x, item):
     item['quantity'] = round(x, 2)
 
     return None
-
-
-
 
 def wholeNumber(x):
 

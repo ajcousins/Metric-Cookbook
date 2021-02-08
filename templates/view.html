@@ -6,11 +6,6 @@
 
 {% block main %}
 
-
-
-
-
-
     <div class="recipe-layout">
         <div class="grid-item-title">
 
@@ -25,9 +20,6 @@
                    
                 <button class="servesButtonLess" onclick="decrease()"> - </button>
                 <button class="servesButtonMore" onclick="increase()"> + </button>
-
-
-
                 
             </div>
 
@@ -39,13 +31,11 @@
                    <button class="editRecipeButton" name="editRecipe" value="{{ recipe_id }}">Edit Recipe</button>
                 </form>
 
-
                 <form action="/delete" method="post">
                     <button class="deleteRecipeButton" style="margin-left: 5px" name="deleteRecipe" value="{{ recipe_id }}">Delete Recipe</button>
                 </form>
                 {% endif %}
             </div>
-
         </div>
 
         <div class="grid-item-ingredients">
@@ -74,10 +64,8 @@
         <div class="grid-item-method">
             <div style="white-space: pre-wrap;">{{ session.method }}</div>
             <br><br>
-            
         </div>
     </div>
-
 
     <script type="text/javascript">
     document.addEventListener('DOMContentLoaded', function() {
@@ -105,11 +93,10 @@
                 document.getElementById(quants[i].id).innerHTML = " ";
             }
             else {
-                
                 formatQuant = +newQuant.toFixed(2)
                 document.getElementById(quants[i].id).innerHTML = formatQuant;
             }
-            }
+        }
     }
 
     function decrease() {
@@ -126,7 +113,6 @@
                 else {
                     formatQuant = +newQuant.toFixed(2)
                     document.getElementById(quants[i].id).innerHTML = formatQuant;
-                    
                 }
             }    
         }     
