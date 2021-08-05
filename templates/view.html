@@ -1,123 +1,124 @@
-{% extends "layout.html" %}
+{% extends "layout.html" %} {% block title %} Index {% endblock %} {% block main
+%}
 
-{% block title %}
-    Index
-{% endblock %}
+<div class="recipe-layout">
+  <div class="grid-item-title">
+    <h1>{{ session.title }}</h1>
 
-{% block main %}
+    <div class="serves">
+      <span class="servesAuthor">
+        By {{ session.author }}&nbsp;&nbsp;|&nbsp;&nbsp;</span
+      >
 
-    <div class="recipe-layout">
-        <div class="grid-item-title">
+      <span class="italic servesText">Serves: </span>
+      <span class="italic servesNumber" id="serves"
+        >{{ session.servings }}</span
+      >
 
-            <h1>{{ session.title }}</h1>
-
-            <div class="serves">
-                
-                <span class="servesAuthor"> By {{ session.author }}&nbsp;&nbsp;|&nbsp;&nbsp;</span>
-                
-                <span class="italic servesText">Serves: </span>    
-                <span class="italic servesNumber" id="serves">{{ session.servings }}</span>
-                   
-                <button class="servesButtonLess" onclick="decrease()"> - </button>
-                <button class="servesButtonMore" onclick="increase()"> + </button>
-                
-            </div>
-
-            <p> </p>
-
-            <div class="buttonBanner">
-                {% if session.author == session.user %}
-                <form action="/edit" method="post">
-                   <button class="editRecipeButton" name="editRecipe" value="{{ recipe_id }}">Edit Recipe</button>
-                </form>
-
-                <form action="/delete" method="post">
-                    <button class="deleteRecipeButton" style="margin-left: 5px" name="deleteRecipe" value="{{ recipe_id }}">Delete Recipe</button>
-                </form>
-                {% endif %}
-            </div>
-        </div>
-
-        <div class="grid-item-ingredients">
-            <table class="italic">
-                
-                    <colgroup>
-                    <col span="1" style="width: 10%;">
-                    <col span="1" style="width: 10%;">
-                    <col span="1" style="width: 70%;">
-                    </colgroup>
-
-                <tbody>
-                    {% for table in table %}
-                    <tr>
-                        <td class="quant-col">
-                        <span class="itemQuant" id="{{ table.item_id }}">{{ table.quantity }}</span>
-                        {{ table.unit }}
-                        {{ table.ingredient }}
-                        </td>
-                        
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
-        <div class="grid-item-method">
-            <div style="white-space: pre-wrap;">{{ session.method }}</div>
-            <br><br>
-        </div>
+      <button class="servesButtonLess" onclick="decrease()">-</button>
+      <button class="servesButtonMore" onclick="increase()">+</button>
     </div>
 
-    <script type="text/javascript">
-    document.addEventListener('DOMContentLoaded', function() {
-        quants = 0;
-        // Declare global constant
-        window.startServes = parseInt(document.getElementById("serves").innerHTML)
-        currentServes = startServes;
-        quants = document.getElementsByClassName("itemQuant");
-        var i;
-        window.quantsRef = [];
-        for (i = 0; i < quants.length; i++) {
-            quantsRef[i] = quants[i].innerHTML;
-        }
-    })
+    <p></p>
 
-    function increase() {
-        currentServes = parseInt(currentServes) + 1;
-        document.getElementById("serves").innerHTML = currentServes;
-        console.log("const startServes:", startServes);
-        var i;
-        for (i = 0; i < quants.length; i++){
-            let newQuant;
-            newQuant = parseFloat(quantsRef[i]) / parseFloat(startServes) * parseFloat(currentServes);
-            if (isNaN(newQuant)){
-                document.getElementById(quants[i].id).innerHTML = " ";
-            }
-            else {
-                formatQuant = +newQuant.toFixed(2)
-                document.getElementById(quants[i].id).innerHTML = formatQuant;
-            }
-        }
+    <div class="buttonBanner">
+      {% if session.author == session.user %}
+      <form action="/edit" method="post">
+        <button
+          class="editRecipeButton"
+          name="editRecipe"
+          value="{{ recipe_id }}"
+        >
+          Edit Recipe
+        </button>
+      </form>
+
+      <form action="/delete" method="post">
+        <button
+          class="deleteRecipeButton"
+          style="margin-left: 5px"
+          name="deleteRecipe"
+          value="{{ recipe_id }}"
+        >
+          Delete Recipe
+        </button>
+      </form>
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="grid-item-ingredients">
+    <div class="italic">
+      <div>
+        {% for table in table %}
+        <div class="recipe-item">
+          <span class="itemQuant" id="{{ table.item_id }}"
+            >{{ table.quantity }}</span
+          >
+          {{ table.unit }} {{ table.ingredient }}
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+  <div class="grid-item-method">
+    <div style="white-space: pre-wrap">{{ session.method }}</div>
+    <br /><br />
+  </div>
+</div>
+
+<script type="text/javascript">
+  document.addEventListener("DOMContentLoaded", function () {
+    quants = 0;
+    // Declare global constant
+    window.startServes = parseInt(document.getElementById("serves").innerHTML);
+    currentServes = startServes;
+    quants = document.getElementsByClassName("itemQuant");
+    var i;
+    window.quantsRef = [];
+    for (i = 0; i < quants.length; i++) {
+      quantsRef[i] = quants[i].innerHTML;
     }
+  });
 
-    function decrease() {
-        if (currentServes > 1) {
-            currentServes = parseInt(currentServes) - 1;
-            document.getElementById("serves").innerHTML = currentServes;  
-            var i;
-            for (i = 0; i < quants.length; i++){
-                let newQuant;
-                newQuant = parseFloat(quantsRef[i]) / parseFloat(startServes) * parseFloat(currentServes);
-                if (isNaN(newQuant)){
-                    document.getElementById(quants[i].id).innerHTML = " ";
-                }
-                else {
-                    formatQuant = +newQuant.toFixed(2)
-                    document.getElementById(quants[i].id).innerHTML = formatQuant;
-                }
-            }    
-        }     
+  function increase() {
+    currentServes = parseInt(currentServes) + 1;
+    document.getElementById("serves").innerHTML = currentServes;
+    console.log("const startServes:", startServes);
+    var i;
+    for (i = 0; i < quants.length; i++) {
+      let newQuant;
+      newQuant =
+        (parseFloat(quantsRef[i]) / parseFloat(startServes)) *
+        parseFloat(currentServes);
+      if (isNaN(newQuant)) {
+        document.getElementById(quants[i].id).innerHTML = " ";
+      } else {
+        formatQuant = +newQuant.toFixed(2);
+        document.getElementById(quants[i].id).innerHTML = formatQuant;
+      }
     }
-    </script>
+  }
 
+  function decrease() {
+    if (currentServes > 1) {
+      currentServes = parseInt(currentServes) - 1;
+      document.getElementById("serves").innerHTML = currentServes;
+      var i;
+      for (i = 0; i < quants.length; i++) {
+        let newQuant;
+        newQuant =
+          (parseFloat(quantsRef[i]) / parseFloat(startServes)) *
+          parseFloat(currentServes);
+        if (isNaN(newQuant)) {
+          document.getElementById(quants[i].id).innerHTML = " ";
+        } else {
+          formatQuant = +newQuant.toFixed(2);
+          document.getElementById(quants[i].id).innerHTML = formatQuant;
+        }
+      }
+    }
+  }
+</script>
 
 {% endblock %}
